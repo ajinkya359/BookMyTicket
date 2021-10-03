@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.signIn{
+    width: 30%;
+    margin: 0 auto;
+    padding: 5% 0;
+}   
+#submitButton{
+    width: 100%;
+}

@@ -1,0 +1,8 @@
+.movie_card{
+    background-color: aqua;
+    min-width: 10vw;
+    width: 15vw;
+    height: 30vh;
+    margin  : 2vh 2vw;
+    border-radius: 1vh;
+}

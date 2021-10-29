@@ -85,14 +85,14 @@ class SignUp extends Component {
             controlId="formBasicEmail"
             onChange={this.handleFirstNameChange}
           >
-            <Form.Label>Theatre Name</Form.Label>
+            <Form.Label>First Name</Form.Label>
             <Form.Control
               type="text"
-              placeholder="eg-:Donald Theatre"
+              placeholder="eg-:Donald"
               //   onChange={this.change}
             />
             <Form.Text className="text-muted">
-              Enter theatre name here
+              Enter First name here
             </Form.Text>
           </Form.Group>
           <Form.Group
@@ -100,14 +100,14 @@ class SignUp extends Component {
             controlId="formBasicEmail"
             onChange={this.handleLastnameChange}
           >
-            <Form.Label>Theatre Address</Form.Label>
+            <Form.Label>Last name</Form.Label>
             <Form.Control
               type="text"
-              placeholder="eg-:Next to White House, Washington DC, USA"
+              placeholder="eg-:Trump"
               //   onChange={this.change}
             />
             <Form.Text className="text-muted">
-              Enter theatre address here
+              Enter last name here
             </Form.Text>
           </Form.Group>
           <Form.Group
@@ -115,13 +115,13 @@ class SignUp extends Component {
             controlId="formBasicEmail"
             onChange={this.handleEmailChange}
           >
-            <Form.Label>Theatre Email address</Form.Label>
+            <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
               placeholder="saveAmericaTheatre@usa.com"
               //   onChange={this.change}
             />
-            <Form.Text className="text-muted">Enter your Theatre's email here.</Form.Text>
+            <Form.Text className="text-muted">Enter your email here.</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">

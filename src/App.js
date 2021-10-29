@@ -22,10 +22,7 @@ function App() {
     <div>
       <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
       <Body signIn={signInVisible} register={registerVisible} />
-      {/* <MovieCard />
-      <MovieCard />
-      <MovieCard />
-      <img src= alt="Mr.Trump"/> */}
+
     </div>
   );
 }

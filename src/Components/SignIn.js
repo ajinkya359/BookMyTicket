@@ -68,44 +68,27 @@ class SignIn extends Component {
                 controlId="formBasicEmail"
                 onChange={this.handleEmailChange}
               >
-                <Form.Label>Ticket Number</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="eg-: 74222958"
+                  placeholder="eg-:joeBiden@democratic.com"
                   //   onChange={this.change}
                 />
                 <Form.Text className="text-muted">
-                  Enter Ticket Number here
+                  Enter email here
                 </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>password</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="eg-:joeBiden@democratic.com"
+                  placeholder="password"
                   onChange={this.handlePasswordChange}
-                />
+                />  
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={this.handlePasswordChange}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Reason</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Cause I lost elections."
-                  onChange={this.handlePasswordChange}
-                />
-              </Form.Group>
-              {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-              </Form.Group> */}
+              
+              
               <Button variant="danger" type="submit" id="submitButton">
                 Cancel Ticket
               </Button>

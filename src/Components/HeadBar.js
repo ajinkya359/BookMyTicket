@@ -6,9 +6,9 @@ function HeadBar(props) {
   return (
     <div className="bruh">
       <div className="headBar">
-        <div className="leftSide">Ticket Counter 🎫</div>
+        <div className="leftSide">BookMyTicket</div>
         <div className="rightSide">
-          {/* <Button
+          <Button
             variant="primary"
             className="button"
             onClick={props.showSignIn}
@@ -24,7 +24,7 @@ function HeadBar(props) {
           </Button>
           <Button variant="link" className="button">
             AboutUs
-          </Button> */}
+          </Button>
         </div>
       </div>
     </div>

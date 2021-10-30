@@ -132,7 +132,16 @@ class SignUp extends Component {
               onChange={this.handlePasswordChange}
             />
             <Form.Text className="text-muted">Enter you password here</Form.Text>
+          </Form.Group><Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={this.handlePasswordChange}
+            />
+            <Form.Text className="text-muted">Enter you password here</Form.Text>
           </Form.Group>
+
           {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Keep Me signed In" />
             </Form.Group> */}

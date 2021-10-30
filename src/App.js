@@ -1,14 +1,12 @@
-import "./Components/SignIn";
 import "./App.css";
 import React, {useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import HeadBar from "./Components/HeadBar";
 import Body from "./Components/Body";
-import MovieCard from "./Components/MovieCard";
 
 function App() {
-  const [signInVisible, changeSignInVisible] = useState(true);
-  const [registerVisible, changeRegisterVisible] = useState(false);
+  const [signInVisible, changeSignInVisible] = useState(false);
+  const [registerVisible, changeRegisterVisible] = useState(true);
   const showSignIn = () => {
     changeSignInVisible(true);
     changeRegisterVisible(false);
@@ -22,7 +20,8 @@ function App() {
     <div>
       <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
       <Body signIn={signInVisible} register={registerVisible} />
-
+    
+     {/* <Register/> */}
     </div>
   );
 }

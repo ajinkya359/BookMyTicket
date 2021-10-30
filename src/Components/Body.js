@@ -1,11 +1,11 @@
 import React from "react";
-import SignIn from "../Components/SignIn";
-import Register from "../Components/Register";
+import Register from "./SignInAndRegisterComponent/Register";
+import SignIn from "./SignInAndRegisterComponent/SignIn";
 
 function Body(props) {
   const registerOrSignIn = () => {
-    if (props.signIn) return <SignIn />;
-    else return <Register />;
+    if (props.signIn) return <SignIn/>;
+    else return <Register/>;
   };
 
   return <div>{registerOrSignIn()}</div>;

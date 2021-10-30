@@ -25,7 +25,8 @@ db_connect.connect((err) => {
 });
 
 router.post('/user',(req,res)=>{
-    const {firstName,lastName,email,password}=req.body;
+    const {userName,email,password,mobileNo}=req.body;
+
     db_connect.query(`select * from users where email="${email}"`,(err,result)=>{
         if (err)
           res.send({
@@ -34,7 +35,7 @@ router.post('/user',(req,res)=>{
           })
         else{
             if(result.length===0){
-                db_connect.query(`insert into users(firstName,secondName,email,password) values("${firstName}","${lastName}","${email}","${password}")`,(err,result)=>{
+                db_connect.query(`insert into users(userName,email,password,mobile_no) values("${userName}","${email}","${password}","${mobileNo}")`,(err,result)=>{
                     console.log(result)
                     if(err){
                         res.send({

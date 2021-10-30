@@ -4,7 +4,7 @@ import SignIn from "./SignInAndRegisterComponent/SignIn";
 
 function Body(props) {
   const registerOrSignIn = () => {
-    if (props.signIn) return <SignIn/>;
+    if (props.signIn) return <SignIn />;
     else return <Register/>;
   };
 

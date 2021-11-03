@@ -1,8 +1,10 @@
 import "./App.css";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import HeadBar from "./Components/HeadBar";
 import Body from "./Components/Body";
+import MovieCard from "./Components/MovieCard";
+import HomePage from "./Components/HomePage/HomePage";
 
 function App() {
   const [signInVisible, changeSignInVisible] = useState(true);
@@ -18,9 +20,9 @@ function App() {
 
   return (
     <div>
-      <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
-      <Body signIn={signInVisible} register={registerVisible} />
-     {/* <Register/> */}
+      <HomePage />
+      {/* <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
+      <Body signIn={signInVisible} register={registerVisible} /> */}
     </div>
   );
 }

@@ -1,0 +1,22 @@
+import React, { Fragment, useState } from "react";
+import NavBar from "../NavBar/NavBar";
+import GetMovies from "./GetMovies";
+
+const HomePage = () => {
+  const [searchValue, setSearchValue] = useState({
+    value: "",
+    status: false,
+  });
+  return (
+    <Fragment>
+      <NavBar searchValue={searchValue} setSearchValue={setSearchValue} />
+      {!searchValue.status ? (
+        <GetMovies searchTitle={null} />
+      ) : (
+        <GetMovies searchTitle={searchValue.value} />
+      )}
+    </Fragment>
+  );
+};
+
+export default HomePage;

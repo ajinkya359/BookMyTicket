@@ -9,6 +9,8 @@ const path = require("path");
 // })
 app.use("/login", require(path.join(__dirname + "/routes/login.js")));
 app.use("/register", require(path.join(__dirname + "/routes/register.js")));
+app.use('/search_theatres',require(path.join(__dirname+'/routes/search_theatres.js')))
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

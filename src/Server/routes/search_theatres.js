@@ -1,4 +1,3 @@
-const { json } = require("express");
 const exprees = require("express");
 const router = exprees.Router();
 const db_connect = require("../database/database_access");
@@ -53,7 +52,7 @@ router.get("/", (req, res) => {
                 // console.log(r)
                 theatre_name_with_time.push(r);
               });
-              console.log(theatre_name_with_time);
+              // console.log(theatre_name_with_time);
               res.send(JSON.stringify(theatre_name_with_time));
             }
           }

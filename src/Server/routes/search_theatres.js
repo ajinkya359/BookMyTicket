@@ -23,14 +23,19 @@ db_connect.connect((err) => {
   if (err) console.log(err);
   else console.log("Connected to database");
 });
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
   const { id } = req.body;
-  // console.log(id)
+  // console.log(req.body)
+  // console.log(id);
   db_connect.query(
     `select * from movie_theatre_connect where movie_id=${id}`,
     (err, result) => {
       if (err) res.send(err);
       else {
+        if (result.length === 0) {
+          res.send(JSON.stringify([]));
+          return;
+        }
         // console.log(result)
         var theatres_id = result.map((e) => e.theatre_id);
         db_connect.query(
@@ -40,19 +45,31 @@ router.get("/", (req, res) => {
           (err, theatre_details) => {
             if (err) res.send(err);
             else {
-              let i = 0;
               var theatre_name_with_time = [];
-              result.forEach((element) => {
-                if (element.theatre_id !== theatre_details[i].id) i++;
-                var r = {
-                  theatre_id: element.theatre_id,
-                  theatre_name: theatre_details[i].theatreName,
-                  time: element.time,
+              // console.log(result);
+              // console.log(theatre_details);
+              var j = 0;
+              for (var i = 0; i < result.length; ) {
+                // console.log(result.length)
+
+                var current_theatre = {
+                  theatre_id: theatre_details[j].id,
+                  theatre_name: theatre_details[j].theatreName,
                 };
-                // console.log(r)
-                theatre_name_with_time.push(r);
-              });
-              // console.log(theatre_name_with_time);
+
+                var time = [];
+                while (
+                  i < result.length &&
+                  result[i].theatre_id === theatre_details[j].id
+                ) {
+                  time.push(result[i].time);
+                  i++;
+                }
+                current_theatre.times = time;
+                theatre_name_with_time.push(current_theatre);
+                j++;
+                // console.log(i, j);
+              }
               res.send(JSON.stringify(theatre_name_with_time));
             }
           }

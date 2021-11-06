@@ -1,0 +1,100 @@
+*
+{
+  background:rgb(30, 30, 54);
+  color:white;
+  /* font-family:'Oswald', sans-serif; */
+}
+.grid-container
+{
+  /* border:5px solid white; */
+  display:grid;
+  grid-template-columns:auto auto;
+  grid-template-rows: auto auto;
+  justify-content: space-around;
+  align-content: space-around;
+ 
+}
+.grid-items
+{
+    color:white;
+    text-align: center;
+    font-weight: 600;
+}
+#about
+{
+    margin:25px;
+    height:20vh;
+    width:100vw;
+    /* font-family: 'Zen Antique Soft', serif; */
+    /* display:flex;
+    justify-content: center;
+    align-items: center; */
+    /* font-family:'Oswald', sans-serif; */
+    font-size:40px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: underline;
+    /* background:white; */
+}
+#text
+{
+  height: 50vh;
+  width:35vw;
+  display:flex;
+  color:white;
+  /* margin:0px 20px 50px 120px; */
+  justify-content: center;
+  align-items: center;
+  font-size:30px;
+  text-align: center;
+  font-weight: 400;
+  background:rgb(30, 30, 54);
+  /* border: 5px solid #2ef0a5; */
+  /* border-radius: 5px; */
+  
+}
+#wrapper
+{
+  height: 60vh;
+  width:40vw;
+  display:flex;
+  color:white;
+  margin:0px 20px 50px 120px;
+  justify-content: center;
+  align-items: center;
+  /* font-size:30px; */
+  /* text-align: center; */
+  /* font-weight: 400; */
+  background:linear-gradient(#34ebe5,#b734eb);
+  /* border: 5px solid #2ef0a5; */
+  border-radius: 5px;
+  
+}
+
+#image
+{
+  margin:0px 70px 50px 10px;
+  height:60vh;
+  width:40vw;
+  justify-content:center;
+  align-items:center;
+  display:flex;
+  
+  background: linear-gradient(#34ebe5,#b734eb);
+  border-radius: 5px;
+}
+
+.menu
+{
+  font-size:25px;
+  color:#34ebe5;
+  text-decoration: none;
+}
+.menu:hover
+{
+  color:#be3bdb;
+}
+#about
+{
+  grid-area:1/span 2/1/span 2;
+}

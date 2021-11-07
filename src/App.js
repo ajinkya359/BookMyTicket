@@ -5,6 +5,8 @@ import HeadBar from "./Components/HeadBar";
 import Body from "./Components/Body";
 import MovieCard from "./Components/MovieCard";
 import HomePage from "./Components/HomePage/HomePage";
+import { Route } from "react-router-dom";
+import MovieDetails from "./Components/HomePage/MovieDetails";
 
 function App() {
   const [signInVisible, changeSignInVisible] = useState(true);
@@ -20,9 +22,15 @@ function App() {
 
   return (
     <div>
-      <HomePage />
+      <Route path="/" exact>
+        <HomePage />
+      </Route>
       {/* <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
       <Body signIn={signInVisible} register={registerVisible} /> */}
+
+      <Route path="/movie-details/:movieId">
+        <MovieDetails />
+      </Route>
     </div>
   );
 }

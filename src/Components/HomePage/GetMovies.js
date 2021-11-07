@@ -29,7 +29,15 @@ const GetMovies = (props) => {
   };
 
   const movieCard = (item) => {
-    return <MovieCard key={item.id} title={item.title} img={item.image} />;
+    console.log(item);
+    return (
+      <MovieCard
+        key={item.id}
+        title={item.title}
+        img={item.image}
+        id={item.id}
+      />
+    );
   };
 
   useEffect(() => {

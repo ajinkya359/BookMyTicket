@@ -1,0 +1,29 @@
+.header {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+}
+
+.img {
+  width: 50%;
+}
+
+.plot {
+  margin: 1rem;
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .body {
+    flex-direction: column;
+  }
+  .img {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+}

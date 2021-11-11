@@ -6,7 +6,7 @@ function HeadBar(props) {
   return (
     <div className="bruh">
       <div className="headBar">
-        <div className="leftSide">BookMyTicket</div>
+        <div className="leftSide">{props.heading}</div>
         <div className="rightSide">
           <Button
             variant="primary"

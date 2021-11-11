@@ -2,9 +2,16 @@ import React, { Fragment, useEffect, useState } from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styles from "./MovieDetails.module.css";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 const MovieDetails = () => {
   const params = useParams();
+  const [id, changeId] = useState("");
+  const history=useHistory();
+  const theatreDetailsUrl = "/theatres_list/" + id.substring(2, id.length);
+
+
   const [isFetched, setFetched] = useState({
     status: false,
     message: "Loading Movie Details",
@@ -14,7 +21,7 @@ const MovieDetails = () => {
   const fetchMovieDetails = async () => {
     const url =
       "https://imdb-api.com/en/API/Title/k_z51xge10/" + params.movieId;
-    console.log(url);
+    // console.log(url);
     const response = await fetch(url);
     if (response.status >= 200 && response.status <= 299)
       return response.json();
@@ -25,12 +32,13 @@ const MovieDetails = () => {
     const response = fetchMovieDetails();
     response
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setFetched({
           status: true,
           message: "",
           data: data,
         });
+        changeId(data.id)
       })
       .catch((err) => {
         setFetched({
@@ -41,13 +49,19 @@ const MovieDetails = () => {
       });
   }, []);
 
-  console.log(params.movieId);
+const handleClick=()=>{
+  history.push(theatreDetailsUrl)
+}
+
+
+  // console.log(params.movieId);
   return (
     <Fragment>
       {!isFetched.status && <p>{isFetched.message}</p>}
       {isFetched.status && (
         <div>
-          {console.log(isFetched.data)}
+          {/* {console.log(isFetched.data)} */}
+          {console.log(id.substring(2, id.length))}
           <ReactBootstrap.Card bg="dark" text="light">
             <ReactBootstrap.Card.Header className={styles.header}>
               {isFetched.data.fullTitle}
@@ -62,9 +76,11 @@ const MovieDetails = () => {
                 {isFetched.data.plot}
               </ReactBootstrap.Card.Text>
             </ReactBootstrap.Card.Body>
-            <ReactBootstrap.Button variant="danger">
-              Book Ticket
-            </ReactBootstrap.Button>
+            {/* <Link to={theatreDetailsUrl}> */}
+              <ReactBootstrap.Button variant="danger" onClick={handleClick}>
+                Book Ticket
+              </ReactBootstrap.Button>
+            {/* </Link> */}
           </ReactBootstrap.Card>
         </div>
       )}

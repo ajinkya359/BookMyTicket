@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
           res.send(JSON.stringify([]));
           return;
         }
-        // console.log(result)
+        console.log(result);
         var theatres_id = result.map((e) => e.theatre_id);
         db_connect.query(
           `select id ,theatreName from theatres where ID in (${db_connect.escape(
@@ -45,7 +45,8 @@ router.post("/", (req, res) => {
           (err, theatre_details) => {
             if (err) res.send(err);
             else {
-              var theatre_name_with_time = [];
+              var theatre_name_with_time = {};
+              const theatre_list=[]
               // console.log(result);
               // console.log(theatre_details);
               var j = 0;
@@ -66,11 +67,23 @@ router.post("/", (req, res) => {
                   i++;
                 }
                 current_theatre.times = time;
-                theatre_name_with_time.push(current_theatre);
+                theatre_list.push(current_theatre);
                 j++;
                 // console.log(i, j);
               }
-              res.send(JSON.stringify(theatre_name_with_time));
+              theatre_name_with_time.theatre_list=theatre_list
+
+              db_connect.query(
+                `select movie_name from movies where id=${id}`,
+                (err, movie_name_array) => {
+                  if (err) res.send(err);
+                  else {
+                    theatre_name_with_time.movie_name= movie_name_array[0].movie_name;
+                    console.log(theatre_name_with_time[theatre_name_with_time.length]);
+                    res.send(JSON.stringify(theatre_name_with_time));
+                  }
+                }
+              );
             }
           }
         );

@@ -1,26 +1,49 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import TheatreDetailsAndMovieTime from './TheatreDetailsAndMovieTime';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import HeadBar from "../HeadBar";
+import NavBar from "../NavBar/NavBar";
+import MovieDetails from "./MovieDetails";
+import TheatreDetailsAndMovieTime from "./TheatreDetailsAndMovieTime";
 
-function TheatreList({movie_id}) {
-    const [theatreDetails,setTheatreDetails]=useState([]);
-    
-    useEffect(()=>{
-        console.log("making request")
-        const body={id:movie_id};
-        axios.post("http://localhost:5000/search_theatres",body)
-        .then(response=>{
-                // console.log(response)
-            console.log(response.data)
-            setTheatreDetails(response.data)
-        })
-        .catch(err=>console.log(err))
-    },[movie_id])
-    return (
-        <div>
-           {theatreDetails.map(e=><TheatreDetailsAndMovieTime key={e.theatre_id} theatreName={e.theatre_name} showTimes={e.times}/>)}
-        </div>
-    )
+function TheatreList() {
+  const params = useParams();
+  const [theatreList, setTheatreList] = useState([]);
+  const [movieName, setMovieName] = useState("");
+  const movie_id = params.movieId;
+  // console.log("theatreList",params)
+  useEffect(() => {
+    console.log("making request");
+    const body = { id: movie_id };
+    axios
+      .post("http://localhost:5000/search_theatres", body)
+      .then((response) => {
+        setTheatreList(response.data.theatre_list);
+        setMovieName(response.data.movie_name);
+        console.log("response", response.data);
+        // console.log(response.data)
+        // setTheatreDetails(response.data)
+      })
+      .catch((err) => console.log(err));
+  }, [movie_id]);
+  return (
+    <div>
+      {/* <HeadBar heading={movieName} /> */}
+      <NavBar/>
+      <MovieDetails name={movieName}/>
+      <ul>
+        {theatreList.map((e) => (
+        
+            <TheatreDetailsAndMovieTime
+              key={e.theatre_id}
+              theatreName={e.theatre_name}
+              showTimes={e.times}
+            />
+          
+        ))}
+      </ul>
+      </div>
+  );
 }
 
-export default TheatreList
+export default TheatreList;

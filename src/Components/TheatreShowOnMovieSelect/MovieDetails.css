@@ -1,0 +1,13 @@
+.MovieDetails {
+  display: flex;
+  justify-content: space-around;
+  height: 15vh;
+  /* border: 2px solid black; */
+}
+.MovieName{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+

@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import { useHistory } from "react-router";
 import * as ReactBootstrap from "react-bootstrap";
 
 const NavBar = (props) => {
+  var history = useHistory();
+
   const searchHandler = (event) => {
     event.preventDefault();
     props.setSearchValue((prevValue) => {
@@ -12,6 +15,10 @@ const NavBar = (props) => {
     });
   };
 
+  const handleClick=()=>{
+    // console.log("Home page")
+  history.push(`/`);
+  }
   return (
     <ReactBootstrap.Navbar
       collapseOnSelect
@@ -20,7 +27,7 @@ const NavBar = (props) => {
       variant="dark"
     >
       <ReactBootstrap.Container>
-        <ReactBootstrap.Navbar.Brand href="#home">
+        <ReactBootstrap.Navbar.Brand href="#home" onClick={handleClick}>
           BookMyTicket
         </ReactBootstrap.Navbar.Brand>
         <ReactBootstrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />

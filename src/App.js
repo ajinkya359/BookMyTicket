@@ -39,6 +39,9 @@ function App() {
       <Route path="/movie-details/:movieId">
         <MovieDetails />
       </Route>
+      <Route path="/theatres_list/:movieId">
+        <TheatreList />
+      </Route>
       {/* <HomePage /> */}
       {/* <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
       <Body signIn={signInVisible} register={registerVisible} /> */}
@@ -49,7 +52,7 @@ function App() {
       <TheatreDetailsAndMovieTime />
       <TheatreDetailsAndMovieTime />
       <TheatreDetailsAndMovieTime /> */}
-      <TheatreList movie_id={4} />
+      {/* <TheatreList movie_id={4} /> */}
     </div>
   );
 }

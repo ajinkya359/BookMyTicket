@@ -8,6 +8,7 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
+  color: black;
 }
 .TheatreDetails{
   width: 20vw;

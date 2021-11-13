@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import * as ReactBootstrap from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 const NavBar = (props) => {
   var history = useHistory();
-
+  const [searchBarStatus, setSearchBarStatus] = useState(true);
   const searchHandler = (event) => {
     event.preventDefault();
     props.setSearchValue((prevValue) => {
@@ -15,9 +16,19 @@ const NavBar = (props) => {
     });
   };
 
-  const handleClick=()=>{
+  const handleClick = () => {
     // console.log("Home page")
-  history.push(`/`);
+    history.push(`/`);
+  };
+
+  const handleSignInClick = () => {
+    history.push("/sign_in");
+  };
+  useEffect(() => {
+    setSearchBarStatus(!("searchBar" in props));
+  }, []);
+  const handleSubmit=(e)=>{
+    e.preventDefault();
   }
   return (
     <ReactBootstrap.Navbar
@@ -26,6 +37,7 @@ const NavBar = (props) => {
       bg="dark"
       variant="dark"
     >
+      {}
       <ReactBootstrap.Container>
         <ReactBootstrap.Navbar.Brand href="#home" onClick={handleClick}>
           BookMyTicket
@@ -33,7 +45,11 @@ const NavBar = (props) => {
         <ReactBootstrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <ReactBootstrap.Navbar.Collapse id="responsive-navbar-nav">
           <ReactBootstrap.Nav className="me-auto">
-            <ReactBootstrap.Form className="d-flex">
+            <ReactBootstrap.Form
+              className="d-flex"
+              style={{ visibility: searchBarStatus ? "visible" : "hidden" }}
+              onSubmit={handleSubmit}
+            >
               <ReactBootstrap.FormControl
                 type="search"
                 placeholder="Search"
@@ -55,15 +71,19 @@ const NavBar = (props) => {
             </ReactBootstrap.Form>
           </ReactBootstrap.Nav>
           <ReactBootstrap.Nav>
-            <ReactBootstrap.Nav.Link href="#deets">
-              LogIn
-            </ReactBootstrap.Nav.Link>
-            <ReactBootstrap.Nav.Link eventKey={2} href="#memes">
+            <Button
+              variant="dark"
+              style={{ margin: "0 0.25vw" }}
+              onClick={handleSignInClick}
+            >
+              Login
+            </Button>
+            <Button variant="dark" style={{ margin: "0 0.25vw" }}>
               About Us
-            </ReactBootstrap.Nav.Link>
-            <ReactBootstrap.Nav.Link href="#deets">
+            </Button>
+            <Button variant="dark" style={{ margin: "0 0.25vw" }}>
               Contact Us
-            </ReactBootstrap.Nav.Link>
+            </Button>
           </ReactBootstrap.Nav>
         </ReactBootstrap.Navbar.Collapse>
       </ReactBootstrap.Container>

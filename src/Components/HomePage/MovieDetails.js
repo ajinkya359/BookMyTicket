@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import * as ReactBootstrap from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styles from "./MovieDetails.module.css";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 const MovieDetails = () => {

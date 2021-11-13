@@ -4,7 +4,7 @@ import './TheatreDetail.css'
 function TheatreDetail(props) {
     return (
         <div className="TheatreName">
-          <a>{props.theatre_name}</a>
+          <p>{props.theatre_name}</p>
       </div>
     );
 }

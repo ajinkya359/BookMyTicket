@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import MovieCard from "./MovieCard";
 import * as ReactBootstrap from "react-bootstrap";
 import styles from "./GetMovies.module.css";

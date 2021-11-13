@@ -7,6 +7,7 @@ import MovieCard from "./Components/MovieCard";
 import HomePage from "./Components/HomePage/HomePage";
 import { Route } from "react-router-dom";
 import MovieDetails from "./Components/HomePage/MovieDetails";
+import SignInFunc from "./Components/SignInAndRegisterComponent/SignIn";
 // import HeadBar from "./Components/HeadBar";
 // import Body from "./Components/Body";
 // import MovieCard from "./Components/MovieCard";
@@ -15,6 +16,7 @@ import MovieDetails from "./Components/HomePage/MovieDetails";
 // import DateAndTime from "./Components/TheatreShowOnMovieSelect/DateAndTime";
 // import TheatreDetailsAndMovieTime from "./Components/TheatreShowOnMovieSelect/TheatreDetailsAndMovieTime";
 import TheatreList from "./Components/TheatreShowOnMovieSelect/TheatreList";
+import Register from "./Components/SignInAndRegisterComponent/Register";
 
 function App() {
   // const [signInVisible, changeSignInVisible] = useState(true);
@@ -32,6 +34,13 @@ function App() {
     <div>
       <Route path="/" exact>
         <HomePage />
+      </Route>
+
+      <Route path="/sign_in" exact>
+        <SignInFunc />
+      </Route>
+      <Route path="/register" exact>
+        <Register />
       </Route>
       {/* <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
       <Body signIn={signInVisible} register={registerVisible} /> */}

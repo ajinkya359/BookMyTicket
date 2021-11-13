@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import HeadBar from "../HeadBar";
 import NavBar from "../NavBar/NavBar";
 import MovieDetails from "./MovieDetails";
 import TheatreDetailsAndMovieTime from "./TheatreDetailsAndMovieTime";
@@ -18,8 +17,8 @@ function TheatreList() {
     axios
       .post("http://localhost:5000/search_theatres", body)
       .then((response) => {
-        setTheatreList(response.data.theatre_list);
-        setMovieName(response.data.movie_name);
+        if('theatre_list' in response.data)setTheatreList(response.data.theatre_list);
+        if('movie_name' in response.data)setMovieName(response.data.movie_name);
         console.log("response", response.data);
         // console.log(response.data)
         // setTheatreDetails(response.data)
@@ -28,9 +27,10 @@ function TheatreList() {
   }, [movie_id]);
   return (
     <div>
+
       {/* <HeadBar heading={movieName} /> */}
-      <NavBar/>
-      <MovieDetails name={movieName}/>
+      <NavBar searchBar={false}/>
+      <MovieDetails name={movieName===''?'No halls available':`${movieName}`}/>
       <ul>
         {theatreList.map((e) => (
         

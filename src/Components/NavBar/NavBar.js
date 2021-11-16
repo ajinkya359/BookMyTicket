@@ -2,10 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import * as ReactBootstrap from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import backEndUrl from "../../Server/BackEndConnect/backEndUrl";
+import axios from "axios";
+import { changeUser } from "../../Server/database/database_access";
+import { Cookie } from "express-session";
 
 const NavBar = (props) => {
   var history = useHistory();
-  const [searchBarStatus, setSearchBarStatus] = useState(true);
+  const [searchBarStatus, setSearchBarStatus] = useState(!("searchBar" in props));
+  const [loggedin, changeLoggedInStatus] = useState(localStorage.getItem('sessionID')===null?false:true);
+  const [username, setusername] = useState(localStorage.getItem('username'));
+  console.log(localStorage.getItem("username"));
   const searchHandler = (event) => {
     event.preventDefault();
     props.setSearchValue((prevValue) => {
@@ -17,19 +24,30 @@ const NavBar = (props) => {
   };
 
   const handleClick = () => {
-    // console.log("Home page")
     history.push(`/`);
   };
 
   const handleSignInClick = () => {
-    history.push("/sign_in");
+    history.push("/login");
   };
-  useEffect(() => {
-    setSearchBarStatus(!("searchBar" in props));
-  }, []);
-  const handleSubmit=(e)=>{
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-  }
+  };
+
+  const handleLogout = (e) => {
+    const url = backEndUrl + "/users/logout";
+    axios
+      .get(url, { withCredentials: true })
+      .then((response) => {
+        console.log(response.data);
+        localStorage.removeItem("sessionID");
+        localStorage.removeItem("username");
+        history.push("/login");
+        changeLoggedInStatus(false);
+      })
+      .catch((err) => alert(err));
+  };
   return (
     <ReactBootstrap.Navbar
       collapseOnSelect
@@ -37,7 +55,7 @@ const NavBar = (props) => {
       bg="dark"
       variant="dark"
     >
-      {}
+      {/* {console.log(username)} */}
       <ReactBootstrap.Container>
         <ReactBootstrap.Navbar.Brand href="#home" onClick={handleClick}>
           BookMyTicket
@@ -73,15 +91,50 @@ const NavBar = (props) => {
           <ReactBootstrap.Nav>
             <Button
               variant="dark"
-              style={{ margin: "0 0.25vw" }}
+              style={{
+                margin: "0 0.25vw",
+                display: loggedin === false ? "visible" : "none",
+              }}
               onClick={handleSignInClick}
             >
               Login
             </Button>
-            <Button variant="dark" style={{ margin: "0 0.25vw" }}>
+            <div
+              // variant="blank"
+              style={{
+                display: loggedin === true ? "visible" : "none",
+                color: "white",
+                margin:'0.5vw 0'
+              }}
+            >
+              {username}
+            </div>
+            <Button
+              variant="danger"
+              onClick={handleLogout}
+              style={{
+                display: loggedin === true ? "visible" : "none",
+                margin:"0 1vw"
+              }}
+            >
+              Logout
+            </Button>
+            <Button
+              variant="dark"
+              style={{
+                margin: "0 0.25vw",
+                display: !loggedin ? "visible" : "none",
+              }}
+            >
               About Us
             </Button>
-            <Button variant="dark" style={{ margin: "0 0.25vw" }}>
+            <Button
+              variant="dark"
+              style={{
+                margin: "0 0.25vw",
+                display: !loggedin ? "visible" : "none",
+              }}
+            >
               Contact Us
             </Button>
           </ReactBootstrap.Nav>

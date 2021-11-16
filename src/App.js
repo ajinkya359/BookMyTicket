@@ -5,63 +5,37 @@ import HeadBar from "./Components/HeadBar";
 import Body from "./Components/Body";
 import MovieCard from "./Components/MovieCard";
 import HomePage from "./Components/HomePage/HomePage";
-import { Route } from "react-router-dom";
+import { Route,Switch } from "react-router-dom";
 import MovieDetails from "./Components/HomePage/MovieDetails";
 import SignInFunc from "./Components/SignInAndRegisterComponent/SignIn";
-// import HeadBar from "./Components/HeadBar";
-// import Body from "./Components/Body";
-// import MovieCard from "./Components/MovieCard";
-// import HomePage from "./Components/HomePage/HomePage";
-// import TheatreListOfChosenMovie from "./Components/TheatreShowOnMovieSelect/TheatreListOfChosenMovie";
-// import DateAndTime from "./Components/TheatreShowOnMovieSelect/DateAndTime";
-// import TheatreDetailsAndMovieTime from "./Components/TheatreShowOnMovieSelect/TheatreDetailsAndMovieTime";
 import TheatreList from "./Components/TheatreShowOnMovieSelect/TheatreList";
 import Register from "./Components/SignInAndRegisterComponent/Register";
+import PageNotFound from "./Components/PageNotFound/PageNotFound";
 
 function App() {
-  // const [signInVisible, changeSignInVisible] = useState(true);
-  // const [registerVisible, changeRegisterVisible] = useState(false);
-  // const showSignIn = () => {
-  //   changeSignInVisible(true);
-  //   changeRegisterVisible(false);
-  // };
-  // const showRegister = () => {
-  //   changeSignInVisible(false);
-  //   changeRegisterVisible(true);
-  // };
 
   return (
     <div>
+      <Switch>
       <Route path="/" exact>
         <HomePage />
       </Route>
-
-      <Route path="/sign_in" exact>
+      <Route path="/login" exact>
         <SignInFunc />
       </Route>
       <Route path="/register" exact>
         <Register />
       </Route>
-      {/* <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
-      <Body signIn={signInVisible} register={registerVisible} /> */}
-
       <Route path="/movie-details/:movieId">
         <MovieDetails />
       </Route>
       <Route path="/theatres_list/:movieId">
         <TheatreList />
       </Route>
-      {/* <HomePage /> */}
-      {/* <HeadBar showSignIn={showSignIn} showRegister={showRegister} />
-      <Body signIn={signInVisible} register={registerVisible} /> */}
-      {/* <TheatreListOfChosenMovie movie_id={1}/> */}
-      {/* <DateAndTime/> */}
-      {/* <TheatreDetailsAndMovieTime />
-      <TheatreDetailsAndMovieTime />
-      <TheatreDetailsAndMovieTime />
-      <TheatreDetailsAndMovieTime />
-      <TheatreDetailsAndMovieTime /> */}
-      {/* <TheatreList movie_id={4} /> */}
+      <Route >
+        <PageNotFound/>
+      </Route>
+      </Switch> 
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import NavBar from "../NavBar/NavBar";
@@ -15,6 +15,15 @@ function Register() {
   const [email, emailChange] = useState("");
   const [password, passwordChange] = useState("");
   const [mobileNo, mobileNoChange] = useState("");
+  const [loggedin, setloggedin] = useState(
+    localStorage.getItem("sessionID") !== null
+  );
+
+  useEffect(() => {
+    if (loggedin) {
+      history.push("/");
+    }
+  }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
     const details = {
@@ -24,15 +33,17 @@ function Register() {
       mobileNo: mobileNo,
     };
     console.log(details);
-    const url = backend_url + "/register/user";
+    const url = backend_url + "/users/register";
     console.log(url);
     axios
-      .post(url, details)
+      .post(url, details, { withCredentials: true })
       .then((response) => {
         console.log(response.data);
         if (response.data.registered === false) {
           errChange(response.data.err);
         } else {
+          alert("user registerd")
+          history.push('/login')
           errChange("");
         }
       })
@@ -58,7 +69,7 @@ function Register() {
     console.log(mobileNo);
   };
   const handleSignInClick = () => {
-    history.push("/sign_in");
+    history.push("/login");
   };
   return (
     <div>

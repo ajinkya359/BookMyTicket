@@ -29,7 +29,7 @@ const GetMovies = (props) => {
   };
 
   const movieCard = (item) => {
-    console.log(item);
+    // console.log(item);
     return (
       <MovieCard
         key={item.id}

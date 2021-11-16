@@ -9,6 +9,7 @@
     "axios": "^0.23.0",
     "bootstrap": "^5.1.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",

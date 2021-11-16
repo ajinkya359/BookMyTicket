@@ -9,7 +9,8 @@ const HomePage = () => {
   });
   return (
     <Fragment>
-      <NavBar searchValue={searchValue} setSearchValue={setSearchValue} />
+      {/* {console.log(localStorage.getItem('user'))} */}
+      <NavBar searchValue={searchValue} setSearchValue={setSearchValue} loggedin={localStorage.getItem('sessionID')!==null}/>
       {!searchValue.status ? (
         <GetMovies searchTitle={null} />
       ) : (

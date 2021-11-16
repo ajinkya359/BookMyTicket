@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import NavBar from "../NavBar/NavBar";
@@ -8,28 +8,39 @@ const axios = require("axios");
 const backend_url = require("../../Server/BackEndConnect/backEndUrl");
 
 function SignInFunc() {
-  const history=useHistory();
+  const history = useHistory();
   const [email, emailChange] = useState("");
   const [password, passwordChange] = useState("");
   const [err, errChange] = useState("");
+  const [loggedin,setloggedin]=useState(localStorage.getItem('sessionID')!==null)
 
+  useEffect(()=>{
+    if(loggedin){
+      history.push('/')
+    }
+  },[])
   const handleSubmit = (event) => {
     event.preventDefault();
     const details = {
       email: email,
       password: password,
     };
-    const url = backend_url + "/login/user";
+    const url = backend_url + "/users/login";
     console.log(url);
     axios
-      .post(url, details)
+      .post(url, details, { withCredentials: true })
       .then((response) => {
-        console.log(response.data);
-        if (response.data.signed_in === false) {
+        const data = response.data;
+        if (data.authenticated) {
+          localStorage.setItem('sessionID',data.sessionID)
+          localStorage.setItem('username',data.user.username)
+          console.log("login", response);
+          setloggedin(true)
+          history.push('/')
+          errChange("loggedin");
+        } else {
           console.log("error");
           errChange(response.data.err);
-        } else {
-          errChange("");
         }
       })
       .catch((err) => {
@@ -44,14 +55,14 @@ function SignInFunc() {
   };
   const handlePasswordChange = (e) => {
     passwordChange(e.target.value);
-    console.log(password);
+    // console.log(password);
   };
-const handleRegisterClick=()=>{
-  history.push('/register')
-}
+  const handleRegisterClick = () => {
+    history.push("/register");
+  };
   return (
     <div>
-      <NavBar searchBar={false} />
+      <NavBar searchBar={false}/>
       <div className="signIn">
         <h6 style={{ color: "red" }}>{err}</h6>
         <Form className="form" onSubmit={handleSubmit}>

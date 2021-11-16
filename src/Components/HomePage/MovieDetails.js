@@ -3,6 +3,7 @@ import * as ReactBootstrap from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styles from "./MovieDetails.module.css";
 import { useHistory } from "react-router";
+import { currentAPIKey } from "../../Server/BackEndConnect/apiKeys";
 
 const MovieDetails = () => {
   const params = useParams();
@@ -19,7 +20,7 @@ const MovieDetails = () => {
 
   const fetchMovieDetails = async () => {
     const url =
-      "https://imdb-api.com/en/API/Title/k_z51xge10/" + params.movieId;
+      `https://imdb-api.com/en/API/Title/${currentAPIKey}/` + params.movieId;
     // console.log(url);
     const response = await fetch(url);
     if (response.status >= 200 && response.status <= 299)

@@ -2,6 +2,7 @@ import React, { useEffect,  useState } from "react";
 import MovieCard from "./MovieCard";
 import * as ReactBootstrap from "react-bootstrap";
 import styles from "./GetMovies.module.css";
+import { ajinkyaAPIKey, currentAPIKey } from "../../Server/BackEndConnect/apiKeys";
 
 const GetMovies = (props) => {
   const [isMoviesFetched, setMoviesFetched] = useState({
@@ -12,8 +13,8 @@ const GetMovies = (props) => {
 
   const fetchMovies = async () => {
     const urlString = props.searchTitle
-      ? "Search/k_z51xge10/" + props.searchTitle
-      : "ComingSoon/k_z51xge10";
+      ? `Search/${currentAPIKey}/` + props.searchTitle
+      : `ComingSoon/${currentAPIKey}`;
 
     const url = "https://imdb-api.com/en/API/" + urlString;
 

@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { useHistory } from "react-router";
 import * as ReactBootstrap from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import backEndUrl from "../../Server/BackEndConnect/backEndUrl";
 import axios from "axios";
-import { changeUser } from "../../Server/database/database_access";
-import { Cookie } from "express-session";
+import { Dropdown } from "react-bootstrap";
 
 const NavBar = (props) => {
   var history = useHistory();
-  const [isTheatre, setIsTheatre] = useState(localStorage.getItem("isTheatre"));
-  console.log("istheatre",isTheatre)
-  const [searchBarStatus, setSearchBarStatus] = useState(
-    !("searchBar" in props)
-  );
+  const isTheatre = localStorage.getItem("isTheatre");
+  const theatreNavBar = "theatreNavBar" in props ? props.theatreNavBar : false;
+  console.log("istheatre", isTheatre);
+  const searchBarStatus=!("searchBar" in props);
   const [loggedin, changeLoggedInStatus] = useState(
     localStorage.getItem("sessionID") === null ? false : true
   );
-  const [username, setusername] = useState(localStorage.getItem("username"));
+  const username = localStorage.getItem("username");
   console.log(localStorage.getItem("username"));
   const searchHandler = (event) => {
     event.preventDefault();
@@ -33,9 +31,6 @@ const NavBar = (props) => {
     history.push(`/`);
   };
 
-  const handleSignInClick = () => {
-    history.push("/login");
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +38,7 @@ const NavBar = (props) => {
 
   const handleLogout = (e) => {
     if (!isTheatre) {
-      console.log("user")
+      console.log("user");
       const url = backEndUrl + "/users/logout";
       axios
         .get(url, { withCredentials: true })
@@ -59,7 +54,7 @@ const NavBar = (props) => {
           history.push("/login");
         });
     } else {
-      console.log("theatre")
+      console.log("theatre");
       const url = backEndUrl + "/theatres/logout";
       axios
         .get(url, { withCredentials: true })
@@ -83,7 +78,7 @@ const NavBar = (props) => {
       bg="dark"
       variant="dark"
     >
-      {console.log("search bar", searchBarStatus)}
+      {console.log("theatreNavBar", theatreNavBar)}
       <ReactBootstrap.Container>
         <ReactBootstrap.Navbar.Brand href="#home" onClick={handleClick}>
           BookMyTicket
@@ -117,18 +112,7 @@ const NavBar = (props) => {
             </ReactBootstrap.Form>
           </ReactBootstrap.Nav>
           <ReactBootstrap.Nav>
-            <Button
-              variant="dark"
-              style={{
-                margin: "0 0.25vw",
-                display: loggedin === false ? "visible" : "none",
-              }}
-              onClick={handleSignInClick}
-            >
-              Login
-            </Button>
             <div
-              // variant="blank"
               style={{
                 display: loggedin === true ? "visible" : "none",
                 color: "white",
@@ -165,6 +149,45 @@ const NavBar = (props) => {
             >
               Contact Us
             </Button>
+            <Dropdown
+              style={{
+                display: !theatreNavBar && !loggedin ? "visible" : "none",
+                margin: "0 0.5vw",
+              }}
+            >
+              <Dropdown.Toggle
+                id="dropdown-button-dark-example1"
+                variant="secondary"
+              >
+                Theatre?
+              </Dropdown.Toggle>
+              <Dropdown.Menu variant="dark">
+                <Dropdown.Item href="/theatre/login">
+                  Theatre Login
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-3">
+                  Theatre Register
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <Dropdown
+              style={{
+                display: theatreNavBar && !loggedin ? "visible" : "none",
+                margin: "0 0.5vw",
+              }}
+            >
+              <Dropdown.Toggle
+                id="dropdown-button-dark-example1"
+                variant="secondary"
+              >
+                User?
+              </Dropdown.Toggle>
+              <Dropdown.Menu variant="dark">
+                <Dropdown.Item href="/login">User Login</Dropdown.Item>
+                <Dropdown.Item href="/register">User Register</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </ReactBootstrap.Nav>
         </ReactBootstrap.Navbar.Collapse>
       </ReactBootstrap.Container>

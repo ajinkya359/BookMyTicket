@@ -1,9 +1,6 @@
 import "./App.css";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import HeadBar from "./Components/HeadBar";
-import Body from "./Components/Body";
-import MovieCard from "./Components/MovieCard";
 import HomePage from "./Components/HomePage/HomePage";
 import { Route,Switch } from "react-router-dom";
 import MovieDetails from "./Components/HomePage/MovieDetails";

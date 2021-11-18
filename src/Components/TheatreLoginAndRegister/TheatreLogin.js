@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Form, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import NavBar from "../NavBar/NavBar";
@@ -17,13 +17,14 @@ function TheatreLogin() {
       const url = backEndUrl + "/theatres/login";
       const theatre_id = document.getElementById("theatre_id").value;
       const password = document.getElementById("password").value;
+      if(theatre_id===""||password===""||theatre_id<0) throw Error("Enter valid input");
       const details = {
         theatre_id: theatre_id,
         password: password,
       };
       setLoading(true)
       document.getElementById('submitButton').disabled=true
-      const data= await axios
+      await axios
         .post(url, details, { withCredentials: true })
         .then((res) => {
           // console.log(res.data)
@@ -40,14 +41,13 @@ function TheatreLogin() {
           }
         })
         .catch((err) => {
-          // console.log(err)
           alert(err);
         });
         setLoading(false)
       document.getElementById("submitButton").disabled = false;
 
     } catch (error) {
-      console.log(error);
+      setErr(error)
     }
   };
 
@@ -63,7 +63,7 @@ function TheatreLogin() {
   };
   return (
     <div>
-      <NavBar searchBar={true} />
+      <NavBar searchBar={true} theatreNavBar={true} />
       <div className="signIn">
         <h6 style={{ color: "red" }}>{err}</h6>
         <Form className="form" onSubmit={submitHandler}>
@@ -82,7 +82,7 @@ function TheatreLogin() {
             />
           </Form.Group>
 
-          <Button variant="danger" type="submit" id="submitButton" >
+          <Button variant="danger" type="submit" id="submitButton">
             {loading ? (
               <Spinner
                 as="span"

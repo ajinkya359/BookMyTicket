@@ -16,6 +16,7 @@ function App() {
 
   return (
     <div>
+      This is theatre login branch
       <Switch>
       <Route path="/" exact>
         <HomePage />

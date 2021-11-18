@@ -17,7 +17,7 @@ import TheatreDashboard from "./Components/TheatreDashboard/TheatreDashboard";
 function App() {
 
   return (
-    <div style={{overflow:"auto"}}>
+    <div>
       <Switch>
         <Route path="/" exact>
           <HomePage />

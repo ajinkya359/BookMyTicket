@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import NavBar from "../NavBar/NavBar";
 import { useHistory } from "react-router";
@@ -8,39 +8,58 @@ import backEndUrl from "../../Server/BackEndConnect/backEndUrl";
 import axios from "axios";
 
 function TheatreLogin() {
-    const history=useHistory()
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+
+  const makeRequest = async () => {
+    try {
+      const url = backEndUrl + "/theatres/login";
+      const theatre_id = document.getElementById("theatre_id").value;
+      const password = document.getElementById("password").value;
+      const details = {
+        theatre_id: theatre_id,
+        password: password,
+      };
+      setLoading(true)
+      document.getElementById('submitButton').disabled=true
+      const data= await axios
+        .post(url, details, { withCredentials: true })
+        .then((res) => {
+          // console.log(res.data)
+          const data = res.data;
+          if (data.authenticated) {
+            localStorage.setItem("username", data.theatre_name);
+            localStorage.setItem("sessionID", data.sessionID);
+            localStorage.setItem("theatre_id", data.theatre_id);
+            localStorage.setItem("isTheatre", true);
+            history.push("/theatre/dashboard");
+            setErr("logged in");
+          } else {
+            setErr(data.err);
+          }
+        })
+        .catch((err) => {
+          // console.log(err)
+          alert(err);
+        });
+        setLoading(false)
+      document.getElementById("submitButton").disabled = false;
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const submitHandler = (e) => {
-    //   console.log("sent request")
+    console.log("Form submitted")
     e.preventDefault();
-    const theatre_id = document.getElementById("theatre_id").value;
-    const password = document.getElementById("password").value;
-    const details = {
-      theatre_id: theatre_id,
-      password: password,
-    };
-    const url = backEndUrl + "/theatres/login";
-    axios
-    .post(url, details, { withCredentials: true })
-    .then(res=>{
-        // console.log(res.data)
-        const data=res.data
-        if(data.authenticated)
-        {
-            localStorage.setItem('username',data.theatre_name)
-            localStorage.setItem("sessionID",data.sessionID)
-            localStorage.setItem("theatre_id",data.theatre_id)
-            localStorage.setItem("isTheatre",true)
-            history.push('/theatre/dashboard')
-            setErr("logged in")
-        }else{
-            setErr(data.err)
-        }
-    })
-    .catch(err=>{
-        // console.log(err)
-        alert(err)
-    });
+    if (!loading) {
+      // console.log("setting loading to true");
+      // setLoading(true);
+      makeRequest();
+      // setLoading(false);
+    }
   };
   return (
     <div>
@@ -63,8 +82,18 @@ function TheatreLogin() {
             />
           </Form.Group>
 
-          <Button variant="danger" type="submit" id="submitButton">
-            SignIn
+          <Button variant="danger" type="submit" id="submitButton" >
+            {loading ? (
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            ) : (
+              "SignIn"
+            )}
           </Button>
           <Button variant="link">Not registered? Register Here.</Button>
         </Form>

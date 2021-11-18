@@ -2,11 +2,13 @@
   margin: 0;
   padding: 0;
   /* overflow: auto; */
+
 }
 
 body {
   background-color: #212529;
   color: white;
+  overflow: auto;
 }
 
 a {

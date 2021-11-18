@@ -26,6 +26,7 @@ CREATE TABLE movie_theatre_connect(
     movie_id int NOT NULL,
     theatre_id int NOT NULL,
     number_of_seats int NOT NULL,
+    ticket_basic_fare int NOT NULL ,
     time INT NOT NULL,
     FOREIGN KEY(movie_id) REFERENCES movies(ID)  ON DELETE CASCADE,
     FOREIGN KEY(theatre_id) REFERENCES theatres(ID)  ON DELETE CASCADE,

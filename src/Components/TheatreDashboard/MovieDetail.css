@@ -1,0 +1,16 @@
+.movie_details{
+    border-top : 2px solid black;
+    border-bottom: 2px solid black;
+    margin :1vh 0;
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+}
+.movie_name{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 20vw;
+    text-align: center ;
+}

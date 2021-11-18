@@ -9,9 +9,15 @@ import { Cookie } from "express-session";
 
 const NavBar = (props) => {
   var history = useHistory();
-  const [searchBarStatus, setSearchBarStatus] = useState(!("searchBar" in props));
-  const [loggedin, changeLoggedInStatus] = useState(localStorage.getItem('sessionID')===null?false:true);
-  const [username, setusername] = useState(localStorage.getItem('username'));
+  const [isTheatre, setIsTheatre] = useState(localStorage.getItem("isTheatre"));
+  console.log("istheatre",isTheatre)
+  const [searchBarStatus, setSearchBarStatus] = useState(
+    !("searchBar" in props)
+  );
+  const [loggedin, changeLoggedInStatus] = useState(
+    localStorage.getItem("sessionID") === null ? false : true
+  );
+  const [username, setusername] = useState(localStorage.getItem("username"));
   console.log(localStorage.getItem("username"));
   const searchHandler = (event) => {
     event.preventDefault();
@@ -36,17 +42,39 @@ const NavBar = (props) => {
   };
 
   const handleLogout = (e) => {
-    const url = backEndUrl + "/users/logout";
-    axios
-      .get(url, { withCredentials: true })
-      .then((response) => {
-        console.log(response.data);
-        localStorage.removeItem("sessionID");
-        localStorage.removeItem("username");
-        history.push("/login");
-        changeLoggedInStatus(false);
-      })
-      .catch((err) => alert(err));
+    if (!isTheatre) {
+      console.log("user")
+      const url = backEndUrl + "/users/logout";
+      axios
+        .get(url, { withCredentials: true })
+        .then((response) => {
+          console.log(response.data);
+          localStorage.clear();
+          history.push("/login");
+          changeLoggedInStatus(false);
+        })
+        .catch((err) => {
+          alert(err);
+          localStorage.clear();
+          history.push("/login");
+        });
+    } else {
+      console.log("theatre")
+      const url = backEndUrl + "/theatres/logout";
+      axios
+        .get(url, { withCredentials: true })
+        .then((response) => {
+          console.log(response.data);
+          localStorage.clear();
+          history.push("/theatre/login");
+          changeLoggedInStatus(false);
+        })
+        .catch((err) => {
+          alert(err);
+          localStorage.clear();
+          history.push("/theatre/login");
+        });
+    }
   };
   return (
     <ReactBootstrap.Navbar
@@ -55,7 +83,7 @@ const NavBar = (props) => {
       bg="dark"
       variant="dark"
     >
-      {/* {console.log(username)} */}
+      {console.log("search bar", searchBarStatus)}
       <ReactBootstrap.Container>
         <ReactBootstrap.Navbar.Brand href="#home" onClick={handleClick}>
           BookMyTicket
@@ -104,7 +132,7 @@ const NavBar = (props) => {
               style={{
                 display: loggedin === true ? "visible" : "none",
                 color: "white",
-                margin:'0.5vw 0'
+                margin: "0.5vw 0",
               }}
             >
               {username}
@@ -114,7 +142,7 @@ const NavBar = (props) => {
               onClick={handleLogout}
               style={{
                 display: loggedin === true ? "visible" : "none",
-                margin:"0 1vw"
+                margin: "0 1vw",
               }}
             >
               Logout

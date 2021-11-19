@@ -2,7 +2,7 @@ import React, { useEffect,  useState } from "react";
 import MovieCard from "./MovieCard";
 import * as ReactBootstrap from "react-bootstrap";
 import styles from "./GetMovies.module.css";
-import { ajinkyaAPIKey, currentAPIKey } from "../../Server/BackEndConnect/apiKeys";
+import { currentAPIKey } from "../../Server/BackEndConnect/apiKeys";
 
 const GetMovies = (props) => {
   const [isMoviesFetched, setMoviesFetched] = useState({
@@ -51,7 +51,7 @@ const GetMovies = (props) => {
           message: " Movies Loaded",
           list: items,
         });
-      })
+      },[])
       .catch((err) => {
         setMoviesFetched({
           getStatus: false,
@@ -60,7 +60,7 @@ const GetMovies = (props) => {
         });
         console.log(err);
       });
-  }, [props]);
+    });
 
   return (
     <div className={styles["movies-container"]}>

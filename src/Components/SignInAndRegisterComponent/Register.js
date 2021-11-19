@@ -15,15 +15,13 @@ function Register() {
   const [email, emailChange] = useState("");
   const [password, passwordChange] = useState("");
   const [mobileNo, mobileNoChange] = useState("");
-  const [loggedin, setloggedin] = useState(
-    localStorage.getItem("sessionID") !== null
-  );
+  const loggedin = localStorage.getItem("sessionID") !== null
 
   useEffect(() => {
     if (loggedin) {
       history.push("/");
     }
-  }, []);
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
     const details = {

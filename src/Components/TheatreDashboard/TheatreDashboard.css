@@ -1,0 +1,10 @@
+.parent_block{
+    height: 100vh;
+    /* border: 2px solid red; */
+    height: 100%;
+}
+.theatre_dashboard{
+    color: rgb(185, 159, 159);
+    margin: 0 5%;
+    /* border: 2px solid blue; */
+}

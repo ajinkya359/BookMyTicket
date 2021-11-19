@@ -34,41 +34,45 @@ db_connect.connect((err) => {
 });
 
 router.post("/login", (req, res) => {
-  if (!req.session.theatre) {
+  if (!req.session.authenticated) {
     const { theatre_id, password } = req.body;
     console.log(req.body);
 
-    if(theatre_id===""||password==="") res.send({
-        authenticated:false,
-        err:'None of the field can be empty'
-    })
-    db_connect.query(`select * from theatres where id=${theatre_id};`,
-    (err,result)=>{
-        if(err) res.send({
-            authenticated:false,
-            err:err
-        })
-        else{
-            if(password===result[0].password){
-                req.session.authenticated=true;
-                res.send({
-                    authenticated:true,
-                    sessionID:req.sessionID,
-                    theatre_name:result[0].theatreName,
-                    theatre_id:result[0].ID,
-                })
-            }
-            else res.send({
-                authenticated:false,
-                err:"Incorrect password"
-            })
+    if (theatre_id === "" || password === "")
+      res.send({
+        authenticated: false,
+        err: "None of the field can be empty",
+      });
+    db_connect.query(
+      `select * from theatres where id=${theatre_id};`,
+      (err, result) => {
+        if (err)
+          res.send({
+            authenticated: false,
+            err: err,
+          });
+        else {
+          if (password === result[0].password) {
+            req.session.authenticated = true;
+            res.send({
+              authenticated: true,
+              sessionID: req.sessionID,
+              theatre_name: result[0].theatreName,
+              theatre_id: result[0].ID,
+            });
+          } else
+            res.send({
+              authenticated: false,
+              err: "Incorrect password",
+            });
         }
-    })
+      }
+    );
     // res.send("got it");
   } else res.status(400).send("already logged in");
 });
-router.get('/logout',(req,res)=>{
-  console.log("here")
+router.get("/logout", (req, res) => {
+  console.log("here");
   if (req.session.authenticated) {
     res.clearCookie("connect.id");
     req.session.destroy(() => {
@@ -76,11 +80,88 @@ router.get('/logout',(req,res)=>{
       res.status(200).send("logout success");
     });
   } else {
-    console.log("theatre not signed in")
+    console.log("theatre not signed in");
     res.status(400).send("you are not logged in");
   }
-})
+});
 
+router.get("/", (req, res) => {
+  if (req.session.authenticated) {
+    const theatre_id = req.query.theatre_id;
+    console.log(theatre_id);
+    if (theatre_id <= 0) res.send("invalid parameter");
+    db_connect.query(
+      `select movie_id,time from movie_theatre_connect where theatre_id=${theatre_id}`,
+      (err, result) => {
+        if (err) {
+          res.send({
+            status: false,
+            err: err,
+          });
+        } else {
+          if (result.length === 0) {
+            res.send(JSON.stringify([]));
+            return;
+          }
+          console.log(result);
+          const mapped = result.map((e) => e.movie_id);
+          db_connect.query(
+            `select movie_name,ID from movies where ID in (${db_connect.escape(
+              mapped
+            )})`,
+            (err, result1) => {
+              if (err) {
+                res.send({
+                  status: false,
+                  err: err,
+                });
+              } else {
+                console.log(result1);
+                var final_result = [];
+                var i = 0;
+                result.forEach((element) => {
+                  if (element.movie_id !== result1[i].ID) i++;
+                  var temp = {
+                    movie_name: result1[i].movie_name,
+                    ID: element.movie_id,
+                    time: element.time,
+                  };
+                  final_result.push(temp);
+                });
+                console.log("Final Result", final_result);
+                res.send(JSON.stringify(final_result));
+              }
+            }
+          );
+        }
+      }
+    );
+    // res.send("ola")
+  } else res.status(200).send("Theatre signin first");
+});
 
+router.post("/delete_movie", (req, res) => {
+  const { movie_id, theatre_id, time } = req.body;
+  console.log(req.body);
+  console.log(req.body);
+  db_connect.query(
+    `delete from movie_theatre_connect where movie_id=${movie_id} and theatre_id=${theatre_id} and time=${time}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.send({
+          status: false,
+          err: err,
+        });
+      } else {
+        res.send({
+          status: true,
+        });
+        console.log("deleted", result);
+      }
+    }
+  );
+  // res.send("hello")
+});
 
 module.exports = router;

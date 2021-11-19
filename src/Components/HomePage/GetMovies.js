@@ -51,7 +51,7 @@ const GetMovies = (props) => {
           message: " Movies Loaded",
           list: items,
         });
-      })
+      },[])
       .catch((err) => {
         setMoviesFetched({
           getStatus: false,

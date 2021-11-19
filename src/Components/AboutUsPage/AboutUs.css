@@ -1,0 +1,94 @@
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    /* background:#2b2a42; */
+background:black;
+    /* font-family: 'Oswald', sans-serif; */
+/* font-family: 'Zen Antique Soft', serif; */
+/* font-family: 'Raleway', sans-serif; */
+}
+.cover-photo
+{
+    height:100vh;
+    width:100vw;
+    background:url("./image/theatre-img.jpg");
+    background-size:cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    /* opacity:0.5; */
+    /* margin:50px; */
+}
+.upper-text
+{   margin:10px;
+    color:white;
+    font-size:40px;
+    /* font-weight:700 ; */
+    /* font-family: 'Barlow Semi Condensed', sans-serif; */
+    font-family: 'Archivo Black', sans-serif;
+}
+.lower-text
+{
+    color:white;
+    font-size:80px;
+    /* font-weight:700 ; */
+    /* font-family: 'Barlow Semi Condensed', sans-serif; */
+    font-family: 'Archivo Black', sans-serif;
+}
+.content
+{
+    height:40vh;
+    width:100vw;
+    text-align:center;
+    margin:60px 0px 0px 0px;
+    /* color:#a8a8a8; */
+    color:white;
+    /* #8487e0; */
+    /* font-family: 'Indie Flower', cursive; */
+    font-size:15px;
+    /* text-align:justify; */
+    font-family:Arial, Helvetica, sans-serif;
+    /* font-family: 'Barlow Semi Condensed', sans-serif; */
+    font-weight: 400;
+    
+    
+}
+.image-container
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+    margin:40px 0px 0px 0px;
+}
+img
+{
+    border-radius: 50%;
+    opacity: 0.6;
+    margin:60px;
+    border:5px #adadad solid;
+}
+.footer
+{
+    height:30vh;
+    width:100vw;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+   background:linear-gradient(black,#707070);
+    font-size:15px;
+    
+}
+/* .home
+{
+    height:10vh;
+    width:100vw;
+    color:white;
+    text-align: left;
+    margin:0px 0px 0px 100px;
+} */

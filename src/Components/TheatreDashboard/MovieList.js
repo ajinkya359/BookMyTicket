@@ -10,7 +10,7 @@ function MovieList(props) {
   const [data, setData] = useState([]);
   useEffect(() => {
     fetchMovies();
-  },[]);
+  },[props.refresh]);
 
   const fetchMovies = async () => {
     try {

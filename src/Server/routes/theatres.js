@@ -33,6 +33,46 @@ db_connect.connect((err) => {
   else console.log("Connected to database");
 });
 
+router.post('/add_movie',(req,res)=>{
+  if(req.session.authenticated){
+    const {theatre_id,movie_id,date,time}=req.body;
+    if(theatre_id===""||movie_id===""||date===""||time===""){
+      res.status(404).send("Enter valid input")
+      return
+    }
+    console.log(req.body)
+    var unixtime = Date.parse(`${date} ${time}`)/ 1000;
+    console.log(unixtime)
+    db_connect.query(`select * from movie_theatre_connect where theatre_id=${theatre_id} and movie_id=${movie_id} and time=${unixtime};  `,
+    (err,result)=>{
+      if (err) {
+        console.log(err);
+
+        res.status(404).send(err);
+      } else if (result.length !== 0) {
+        res
+          .status(404)
+          .send(
+            "Same Movie in same theatre and at same time is already present"
+          );
+      } else {
+        db_connect.query(
+          `insert into movie_theatre_connect(theatre_id,movie_id,time) values(${theatre_id},${movie_id},${unixtime});`,
+          (err, result) => {
+            if (err) {
+              res.status(404).send(err);
+            } else {
+              res.status(200).send("Movie added");
+            }
+          }
+        );
+      }
+    })
+    // res.send("add movie backend")
+  } 
+  else res.status(404).send("Theatre must be signed in first")
+})
+
 router.post("/login", (req, res) => {
   if (!req.session.authenticated) {
     const { theatre_id, password } = req.body;

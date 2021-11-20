@@ -1,5 +1,5 @@
 import React, {useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import * as ReactBootstrap from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import backEndUrl from "../../Server/BackEndConnect/backEndUrl";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { Dropdown } from "react-bootstrap";
 
 const NavBar = (props) => {
+  const location=useLocation()
   var history = useHistory();
   const isTheatre = localStorage.getItem("isTheatre");
   const theatreNavBar = "theatreNavBar" in props ? props.theatreNavBar : false;
@@ -188,6 +189,23 @@ const NavBar = (props) => {
                 <Dropdown.Item href="/register">User Register</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            <Button
+              variant="primary"
+              style={{
+                display:
+                  isTheatre &&
+                  loggedin &&
+                  location.pathname !== "/theatre/dashboard"
+                    ? "visible"
+                    : "none",
+              }}
+              onClick={() => {
+                if (!location.pathname !== "/theatre/dashboard")
+                  history.push("/theatre/dashboard");
+              }}
+            >
+              Dashboard
+            </Button>
           </ReactBootstrap.Nav>
         </ReactBootstrap.Navbar.Collapse>
       </ReactBootstrap.Container>

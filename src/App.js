@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./Components/HomePage/HomePage";
-import { Route,Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import MovieDetails from "./Components/HomePage/MovieDetails";
 import SignInFunc from "./Components/SignInAndRegisterComponent/SignIn";
 import TheatreList from "./Components/TheatreShowOnMovieSelect/TheatreList";
@@ -12,7 +12,6 @@ import TheatreLogin from "./Components/TheatreLoginAndRegister/TheatreLogin";
 import TheatreDashboard from "./Components/TheatreDashboard/TheatreDashboard";
 
 function App() {
-
   return (
     <div>
       <Switch>

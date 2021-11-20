@@ -14,3 +14,7 @@ body {
 a {
   color: white;
 }
+
+body {
+  overflow: auto;
+}

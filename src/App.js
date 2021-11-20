@@ -1,9 +1,6 @@
 import "./App.css";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import HeadBar from "./Components/HeadBar";
-import Body from "./Components/Body";
-import MovieCard from "./Components/MovieCard";
 import HomePage from "./Components/HomePage/HomePage";
 import { Route, Switch } from "react-router-dom";
 import MovieDetails from "./Components/HomePage/MovieDetails";
@@ -11,7 +8,8 @@ import SignInFunc from "./Components/SignInAndRegisterComponent/SignIn";
 import TheatreList from "./Components/TheatreShowOnMovieSelect/TheatreList";
 import Register from "./Components/SignInAndRegisterComponent/Register";
 import PageNotFound from "./Components/PageNotFound/PageNotFound";
-import SeatModal from "./Components/SeatModal";
+import TheatreLogin from "./Components/TheatreLoginAndRegister/TheatreLogin";
+import TheatreDashboard from "./Components/TheatreDashboard/TheatreDashboard";
 
 function App() {
   return (
@@ -31,6 +29,12 @@ function App() {
         </Route>
         <Route path="/theatres_list/:movieId">
           <TheatreList />
+        </Route>
+        <Route path="/theatre/login">
+          <TheatreLogin />
+        </Route>
+        <Route path="/theatre/dashboard">
+          <TheatreDashboard/>
         </Route>
         <Route>
           <PageNotFound />

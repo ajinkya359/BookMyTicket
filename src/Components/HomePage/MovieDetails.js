@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styles from "./MovieDetails.module.css";
 import { useHistory } from "react-router";
 import { currentAPIKey } from "../../Server/BackEndConnect/apiKeys";
+import { Spinner } from "react-bootstrap";
 
 const MovieDetails = () => {
   const params = useParams();
@@ -14,7 +15,15 @@ const MovieDetails = () => {
 
   const [isFetched, setFetched] = useState({
     status: false,
-    message: "Loading Movie Details",
+    message: (
+      <Spinner
+        as="span"
+        animation="border"
+        size="sm"
+        role="status"
+        aria-hidden="true"
+      />
+    ),
     data: "",
   });
 
@@ -47,7 +56,7 @@ const MovieDetails = () => {
           data: "",
         });
       });
-  }, []);
+  },[]);
 
 const handleClick=()=>{
   history.push(theatreDetailsUrl)
@@ -65,6 +74,8 @@ const handleClick=()=>{
           <ReactBootstrap.Card bg="dark" text="light">
             <ReactBootstrap.Card.Header className={styles.header}>
               {isFetched.data.fullTitle}
+              <br/>
+              Movie ID: {id.substring(2, id.length)}
             </ReactBootstrap.Card.Header>
             <ReactBootstrap.Card.Body className={styles.body}>
               <ReactBootstrap.Card.Img
@@ -77,9 +88,9 @@ const handleClick=()=>{
               </ReactBootstrap.Card.Text>
             </ReactBootstrap.Card.Body>
             {/* <Link to={theatreDetailsUrl}> */}
-              <ReactBootstrap.Button variant="danger" onClick={handleClick}>
-                Book Ticket
-              </ReactBootstrap.Button>
+            <ReactBootstrap.Button variant="danger" onClick={handleClick}>
+              Book Ticket
+            </ReactBootstrap.Button>
             {/* </Link> */}
           </ReactBootstrap.Card>
         </div>

@@ -1,0 +1,21 @@
+.movie_details{
+    border-top : 2px solid black;
+    border-bottom: 2px solid black;
+    /* border: 2px solid green; */
+    margin :1vh 0;
+    height: 15vh;
+    width: 100%;
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: space-between;
+}
+.movie_name{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* width: 18vw; */
+    width: 100%;
+
+    text-align: center ;
+}

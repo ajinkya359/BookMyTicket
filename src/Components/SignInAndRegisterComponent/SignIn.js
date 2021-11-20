@@ -18,7 +18,7 @@ function SignInFunc() {
     if(loggedin){
       history.push('/')
     }
-  },[])
+  })
   const handleSubmit = (event) => {
     event.preventDefault();
     const details = {

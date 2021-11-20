@@ -9,7 +9,7 @@ function PageNotFound() {
     }
   return (
     <div>
-      <a href="" target="_blank">
+      <div>
         <header class="top-header"></header>
 
         <div>
@@ -40,11 +40,11 @@ function PageNotFound() {
               </p>
             </div>
             <div class={styles["error__nav e-nav"]}>
-              <a href="" target="_blanck" class={styles["e-nav__link"]} onClick={handleClick}></a>
+              <div class={styles["e-nav__link"]} onClick={handleClick}></div>
             </div>
           </div>
         </section>
-      </a>
+      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import * as ReactBootstrap from "react-bootstrap";
 import styles from "./GetMovies.module.css";
+import { Spinner } from "react-bootstrap";
 import { currentAPIKey } from "../../Server/BackEndConnect/apiKeys";
 
 const GetMovies = (props) => {
@@ -51,7 +52,7 @@ const GetMovies = (props) => {
           message: " Movies Loaded",
           list: items,
         });
-      })
+      },[props])
       .catch((err) => {
         setMoviesFetched({
           getStatus: false,
@@ -60,11 +61,13 @@ const GetMovies = (props) => {
         });
         console.log(err);
       });
-  }, [props]);
+    },[props]);
 
   return (
     <div className={styles["movies-container"]}>
-      {!isMoviesFetched.getStatus && <p>Loading Movies...</p>}
+      {!isMoviesFetched.getStatus && (
+        <Spinner animation="border" variant="secondary" />
+      )}
       {isMoviesFetched.getStatus && (
         <ReactBootstrap.Row xs={2} md={5} lg={6} className="g-4">
           {isMoviesFetched.list.map(movieCard)}

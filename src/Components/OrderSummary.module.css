@@ -1,0 +1,104 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.summary {
+  font: size 1rem;
+  font-weight: 500;
+  margin-right: 0;
+  background-color: lightgrey;
+  color: black;
+  padding: 1rem;
+  text-align: center;
+  height: 100vh;
+  max-width: 40%;
+}
+
+.summary-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  line-height: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.booked-movie-details {
+  margin: 0 1rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.pricing-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-left: 1rem;
+}
+
+.payments {
+  font-size: 1rem;
+  padding: 0.4rem;
+  min-width: 60%;
+}
+
+.form {
+  background-color: white;
+  color: black;
+}
+
+.payment-option {
+  display: grid;
+  margin: 1rem;
+}
+
+.payment-option-type {
+  display: inline-grid;
+}
+
+.payment-header {
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+  margin: 1rem;
+}
+
+.movie-title {
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem;
+}
+
+.form {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.input {
+  border: 1px solid black;
+  padding: 0.2rem;
+  margin-bottom: 0.2rem;
+  margin-right: 0.4rem;
+}
+
+.submit {
+  display: block;
+}
+
+.content {
+  font-size: 1rem;
+  font-weight: 600;
+}

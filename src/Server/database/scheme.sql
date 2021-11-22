@@ -32,3 +32,15 @@ CREATE TABLE movie_theatre_connect(
     FOREIGN KEY(theatre_id) REFERENCES theatres(ID)  ON DELETE CASCADE,
     PRIMARY KEY(movie_id,theatre_id,time)
 );
+CREATE TABLE tickets(
+    ticket_id int NOT NULL auto_increment,
+    movie_id int NOT NULL,
+    theatre_id int NOT NULL,
+    user_id int NOT NULL,
+    time INT NOT NULL,
+    seat varchar(5) NOT NULL,
+    FOREIGN KEY(movie_id) REFERENCES movies(ID)  ON DELETE CASCADE,
+    FOREIGN KEY(theatre_id) REFERENCES theatres(ID)  ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES users(ID)  ON DELETE CASCADE,
+    PRIMARY KEY(ticket_id,movie_id,theatre_id,user_id,seat,time)
+);

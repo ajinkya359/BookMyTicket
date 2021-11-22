@@ -56,8 +56,8 @@ router.post("/login", (req, res) => {
             if (password === result[0].password) {
               req.session.authenticated = true;
               res.send({
-                sessionID:req.sessionID,
-                user:result[0],
+                sessionID: req.sessionID,
+                user: result[0],
                 authenticated: true,
               });
             } else {
@@ -76,7 +76,7 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  console.log("ols")
+  console.log("ols");
   if (!req.session.authenticated) {
     const { userName, email, password, mobileNo } = req.body;
 
@@ -120,15 +120,71 @@ router.post("/register", (req, res) => {
 
 router.get("/logout", (req, res) => {
   if (req.session.authenticated) {
-    res.clearCookie('connect.id')
+    res.clearCookie("connect.id");
     req.session.destroy(() => {
-        console.log("user logged out")
+      console.log("user logged out");
       res.status(200).send("logout success");
     });
-    
   } else {
     res.status(400).send("you are not logged in");
   }
+});
+
+router.post("/book_ticket", (req, res) => {
+  const { user_id, theatre_id, movie_id, seats, time } = req.body;
+
+  console.log(req.body);
+  // res.send("okay")
+  db_connect.query(
+    `select * from tickets where user_id=${user_id} and theatre_id=${theatre_id} and movie_id=${movie_id} and seat in (${db_connect.escape(
+      seats
+    )}) and time=${time}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send(err);
+      } else {
+        if (result.length !== 0) {
+          res.status(404).send("Seat is already booked");
+          console.log("seat is already booked")
+        } else {
+          seats.forEach((seat) => {
+            db_connect.query(
+              `insert into tickets(user_id,theatre_id,movie_id,seat,time) values(${user_id},${theatre_id},${movie_id},"${seat}",${time})`,
+              (err, result) => {
+                console.log("ola");
+                if (err) {
+                  console.log(err);
+                  res.status(404).send(err);
+                  return;
+                }
+              }
+            );
+          });
+          res.status(200).send("Cool you ticket is booked");
+        }
+      }
+    }
+  );
+});
+
+router.post("/get_all_booked_seats", (req, res) => {
+  const { theatre_id, movie_id, time } = req.body;
+  console.log(req.body);
+  db_connect.query(
+    `select seat from tickets where theatre_id=${theatre_id} and movie_id=${movie_id} and time=${time}`,
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+        res.status(404).send(err);
+      } else if (result.length === 0) {
+        res.send(JSON.stringify([]));
+      } else {
+        res.status(200).send(JSON.stringify(result));
+      }
+    }
+  );
 });
 
 module.exports = router;

@@ -10,9 +10,15 @@ import Register from "./Components/SignInAndRegisterComponent/Register";
 import PageNotFound from "./Components/PageNotFound/PageNotFound";
 import TheatreLogin from "./Components/TheatreLoginAndRegister/TheatreLogin";
 import TheatreDashboard from "./Components/TheatreDashboard/TheatreDashboard";
+import Seats from "./Components/SelectSeatPage/SeatStatus";
 
 function App() {
   return (
+    // <>
+    //   {/* <Seat/> */}
+    //   <SeatStatus/>
+    //   {/* <AllSeatContainer prime_rows={4} prime_columns={3} standard_rows={3} standard_columns={3}/> */}
+    // </>
     <div>
       <Switch>
         <Route path="/" exact>
@@ -35,6 +41,9 @@ function App() {
         </Route>
         <Route path="/theatre/dashboard">
           <TheatreDashboard/>
+        </Route>
+        <Route path="/book_ticket/:theatre_id/:movie_id/:time">
+          <Seats/>
         </Route>
         <Route>
           <PageNotFound />

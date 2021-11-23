@@ -13,6 +13,7 @@ import TheatreDashboard from "./Components/TheatreDashboard/TheatreDashboard";
 import Seats from "./Components/SelectSeatPage/SeatStatus";
 import OrderSummary from "./Components/OrderSummary";
 import ContactUS from "./Components/ContactUs/ContactUs";
+import TheatreRegister from "./Components/TheatreLoginAndRegister/TheatreRegister";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <HomePage />
+        </Route>
+        <Route path="/theatre/register">
+          <TheatreRegister/>
         </Route>
         <Route path='/contactUs'>
           <ContactUS/>

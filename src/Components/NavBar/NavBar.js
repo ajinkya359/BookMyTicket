@@ -167,7 +167,7 @@ const NavBar = (props) => {
                 <Dropdown.Item href="/theatre/login">
                   Theatre Login
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-3">
+                <Dropdown.Item href="/theatre/register">
                   Theatre Register
                 </Dropdown.Item>
               </Dropdown.Menu>

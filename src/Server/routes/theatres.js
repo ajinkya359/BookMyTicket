@@ -256,4 +256,58 @@ router.post("/added_or_not", (req, res) => {
   );
 });
 
+router.post("/register", (req, res) => {
+  console.log("ols");
+  if (!req.session.authenticated) {
+    const { userName, email, password, mobileNo } = req.body;
+
+    db_connect.query(
+      `select * from theatres where email="${email}"`,
+      (err, result) => {
+        if (err){
+          res.send({
+            registered: false,
+            err: err,
+          });
+          console.log({
+            registered: false,
+            err: err,
+          });
+        }else {
+          if (result.length === 0) {
+            db_connect.query(
+              `insert into theatres(theatreName,email,password,mobile_no) values("${userName}","${email}","${password}","${mobileNo}")`,
+              (err, result) => {
+                console.log("ola",result);
+                if (err) {
+                  res.send({
+                    registered: false,
+                    err: err,
+                  });
+                  console.log(err);
+                } else {
+                  res.send({
+                    registered: true,
+                    theatre_id:result.insertId
+                  });
+                  console.log("registered");
+                }
+              }
+            );
+          } else {
+            res.send({
+              registered: false,
+              err: "User already registered",
+            });
+            console.log({
+              registered: false,
+              err: "User already registered",
+            });
+          }
+        }
+      }
+    );
+  } else res.status(401).send("Not possible as you are logged in already");
+});
+
 module.exports = router;

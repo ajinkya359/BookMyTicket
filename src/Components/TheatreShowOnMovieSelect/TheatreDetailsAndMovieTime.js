@@ -4,9 +4,7 @@ import TheatreDetail from './TheatreDetail';
 import './TheatreDetailsAndMovieTime.css'
 
 function TheatreDetailsAndMovieTime(props) {
-    // const time_list = showTimes.forEach((e) => (
-    //   <DateAndTime time_stamp={e} />
-    // ));
+
     return (
       <div className="TheatreDetailsAndMovieTime">
         {/* {console.log(props)} */}
@@ -16,7 +14,7 @@ function TheatreDetailsAndMovieTime(props) {
         </div>
         <div className="ShowTimes">
           {props.showTimes.map((e) => (
-            <DateAndTime key={e} time_stamp={e} />
+            <DateAndTime key={e} theatre_id={props.theatre_id} movie_id={props.movie_id} theatre_name={props.theatreName} time_stamp={e} />
           ))}
         </div>
       </div>

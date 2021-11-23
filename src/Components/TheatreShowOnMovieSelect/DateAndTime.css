@@ -22,3 +22,6 @@
   margin:0 2vw;
   /* width: 1vw; */
 }
+.DateAndTimeCard:hover{
+  background-color: green;
+}

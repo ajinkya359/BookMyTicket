@@ -17,6 +17,7 @@ function TheatreList() {
     axios
       .post("http://localhost:5000/search_theatres", body)
       .then((response) => {
+        console.log(response.data)
         if('theatre_list' in response.data)setTheatreList(response.data.theatre_list);
         if('movie_name' in response.data)setMovieName(response.data.movie_name);
         console.log("response", response.data);
@@ -36,6 +37,8 @@ function TheatreList() {
         
             <TheatreDetailsAndMovieTime
               key={e.theatre_id}
+              theatre_id={e.theatre_id}
+              movie_id={movie_id}
               theatreName={e.theatre_name}
               showTimes={e.times}
             />

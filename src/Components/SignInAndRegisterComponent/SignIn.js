@@ -34,6 +34,8 @@ function SignInFunc() {
         if (data.authenticated) {
           localStorage.setItem('sessionID',data.sessionID)
           localStorage.setItem('username',data.user.username)
+          localStorage.setItem('userID',data.user.ID)
+          localStorage.setItem('isUser',true)
           console.log("login", response);
           setloggedin(true)
           history.push('/')

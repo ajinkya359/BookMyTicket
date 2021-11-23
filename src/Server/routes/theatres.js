@@ -93,7 +93,13 @@ router.post("/login", (req, res) => {
           res.send({
             authenticated: false,
             err: err,
-          });
+          })
+          else if(result.length===0){
+            res.send({
+              authenticated:false,
+              err:"Theatre not registered."
+            })
+          }
         else {
           if (password === result[0].password) {
             req.session.authenticated = true;

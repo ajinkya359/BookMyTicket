@@ -12,6 +12,7 @@ import TheatreLogin from "./Components/TheatreLoginAndRegister/TheatreLogin";
 import TheatreDashboard from "./Components/TheatreDashboard/TheatreDashboard";
 import Seats from "./Components/SelectSeatPage/SeatStatus";
 import OrderSummary from "./Components/OrderSummary";
+import ContactUS from "./Components/ContactUs/ContactUs";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <HomePage />
+        </Route>
+        <Route path='/contactUs'>
+          <ContactUS/>
         </Route>
         <Route path="/login" exact>
           <SignInFunc />

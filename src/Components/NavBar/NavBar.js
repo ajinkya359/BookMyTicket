@@ -147,6 +147,7 @@ const NavBar = (props) => {
                 margin: "0 0.25vw",
                 display: !loggedin ? "visible" : "none",
               }}
+              onClick={()=>history.push('/contactUs')}
             >
               Contact Us
             </Button>

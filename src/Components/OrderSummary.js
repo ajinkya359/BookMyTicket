@@ -44,13 +44,13 @@ const OrderSummary = (props) => {
         .then((response) => {
           console.log(response.data);
           alert("You ticket is booked");
-
+          history.push('/')
           selected.forEach((e) => {
             document.getElementById(e).className = "disabled";
           });
         })
         .catch((err) => {
-          alert(err);
+          // alert(err);
           console.log(err);
         });
     } catch (error) {

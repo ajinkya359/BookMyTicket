@@ -33,45 +33,48 @@ db_connect.connect((err) => {
   else console.log("Connected to database");
 });
 
-router.post('/add_movie',(req,res)=>{
-  if(req.session.authenticated){
-    const {theatre_id,movie_id,date,time}=req.body;
-    if(theatre_id===""||movie_id===""||date===""||time===""){
-      res.status(404).send("Enter valid input")
-      return
+router.post("/add_movie", (req, res) => {
+  if (req.session.authenticated) {
+    const { theatre_id, movie_id, date, time } = req.body;
+    if (theatre_id === "" || movie_id === "" || date === "" || time === "") {
+      res.status(404).send("Enter valid input");
+      return;
     }
-    console.log(req.body)
-    var unixtime = Date.parse(`${date} ${time}`)/ 1000;
-    console.log(unixtime)
-    db_connect.query(`select * from movie_theatre_connect where theatre_id=${theatre_id} and movie_id=${movie_id} and time=${unixtime};  `,
-    (err,result)=>{
-      if (err) {
-        console.log(err);
+    console.log(req.body);
+    var unixtime = Date.parse(`${date} ${time}`) / 1000;
+    console.log(unixtime);
+    db_connect.query(
+      `select * from movie_theatre_connect where theatre_id=${theatre_id} and movie_id=${movie_id} and time=${unixtime};  `,
+      (err, result) => {
+        if (err) {
+          console.log(err);
 
-        res.status(404).send(err);
-      } else if (result.length !== 0) {
-        res
-          .status(404)
-          .send(
-            "Same Movie in same theatre and at same time is already present"
-          );
-      } else {
-        db_connect.query(
-          `insert into movie_theatre_connect(theatre_id,movie_id,time) values(${theatre_id},${movie_id},${unixtime});`,
-          (err, result) => {
-            if (err) {
-              res.status(404).send(err);
-            } else {
-              res.status(200).send("Movie added");
+          res.status(404).send(err);
+        } else if (result.length !== 0) {
+          res
+            .status(404)
+            .send(
+              "Same Movie in same theatre and at same time is already present"
+            );
+            console.log("Same Movie in same theatre and at same time is already present")
+        } else {
+          db_connect.query(
+            `insert into movie_theatre_connect(theatre_id,movie_id,time) values(${theatre_id},${movie_id},${unixtime});`,
+            (err, result) => {
+              if (err) {
+                res.status(404).send(err);
+                console.log(err);
+              } else {
+                res.status(200).send("Movie added");
+              }
             }
-          }
-        );
+          );
+        }
       }
-    })
+    );
     // res.send("add movie backend")
-  } 
-  else res.status(404).send("Theatre must be signed in first")
-})
+  } else res.status(404).send("Theatre must be signed in first");
+});
 
 router.post("/login", (req, res) => {
   if (!req.session.authenticated) {
@@ -202,6 +205,55 @@ router.post("/delete_movie", (req, res) => {
     }
   );
   // res.send("hello")
+});
+
+router.post("/add_this_movie_to_movies_database", (req, res) => {
+  const { movie_id, movie_name } = req.body;
+  db_connect.query(
+    `select * from movies where ID=${movie_id}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send(err);
+      } else if (result.length !== 0) {
+        console.log("Movie with same id already exists");
+        res.status(404).send("Movie with same id already exists");
+      } else {
+        db_connect.query(
+          `insert into movies(ID,movie_name,description,image_url) values(${movie_id},"${movie_name}","bruh","bruh")`,
+          (err, result) => {
+            if (err) {
+              console.log(err);
+              res.status(404).send(err);
+            } else {
+              res.status(200).send("Movie added to the database.");
+            }
+          }
+        );
+      }
+    }
+  );
+});
+router.post("/added_or_not", (req, res) => {
+  const { movie_id } = req.body;
+  console.log(req.body);
+  if (movie_id === "") {
+    res.status(200).send(JSON.stringify({ registered: true }));
+    return
+  }
+  db_connect.query(
+    `select * from movies where ID=${movie_id}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send(err);
+      } else if (result.length === 0) {
+        res.status(200).send(JSON.stringify({ registered: false }));
+      } else {
+        res.status(200).send(JSON.stringify({ registered: true }));
+      }
+    }
+  );
 });
 
 module.exports = router;

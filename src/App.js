@@ -11,6 +11,7 @@ import PageNotFound from "./Components/PageNotFound/PageNotFound";
 import TheatreLogin from "./Components/TheatreLoginAndRegister/TheatreLogin";
 import TheatreDashboard from "./Components/TheatreDashboard/TheatreDashboard";
 import Seats from "./Components/SelectSeatPage/SeatStatus";
+import OrderSummary from "./Components/OrderSummary";
 
 function App() {
   return (
@@ -42,8 +43,11 @@ function App() {
         <Route path="/theatre/dashboard">
           <TheatreDashboard/>
         </Route>
-        <Route path="/book_ticket/:theatre_id/:movie_id/:time">
+        <Route path="/book_ticket/:theatre_id/:movie_id/:time/:theatre_name">
           <Seats/>
+        </Route>
+        <Route path="/order_summary/:total_cost/:theatre_name/:time/:premium/:standard">
+          <OrderSummary/>
         </Route>
         <Route>
           <PageNotFound />

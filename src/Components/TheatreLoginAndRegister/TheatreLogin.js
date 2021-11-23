@@ -95,7 +95,7 @@ function TheatreLogin() {
               "SignIn"
             )}
           </Button>
-          <Button variant="link">Not registered? Register Here.</Button>
+          <Button variant="link" onClick={()=>history.push("/theatre/register")}>Not registered? Register Here.</Button>
         </Form>
       </div>
     </div>
